@@ -1,5 +1,5 @@
 # Real-Estate-Property-Management-Software
-This is a Real Estate Property Management Web Application for a Case Study that was developed by Kayode Abiodun Adeyemi as an assignment towards the MSc Computing Programme in Sheffield Hallam University.  
+This is an N-Tier Real Estate Property Management Web Application for a Case Study that was developed by Kayode Abiodun Adeyemi as an assignment towards the MSc Computing Programme in Sheffield Hallam University.  
 
 The objective of the Application is to offer online-real-time services in a simplistic and streamlined fashion to the customers of the Client/Case Study. 
 
