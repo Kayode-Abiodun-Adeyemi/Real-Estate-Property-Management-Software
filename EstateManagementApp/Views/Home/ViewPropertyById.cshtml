@@ -1,0 +1,68 @@
+﻿@model Building;
+@inject SignInManager<ApplicationUser> signInManager;
+@inject UserManager<ApplicationUser> UserManager;
+
+
+@{ ViewData["Title"] = "Home Page"; }
+
+
+<h1>View Property</h1>
+<hr />
+
+
+@{ var photoPath = "~/BuildingImages/" + (@Model.PhotoPath ?? "noimage.png"); }
+
+<div>
+    <div class="card-header">
+        <h3> <img class="card-img-top imageThumbnail" src="@photoPath" alt="" asp-append-version="true" style:auto /> </h3>
+    </div>
+
+    <div class="card-body">
+
+        <h3>Property is for : @Model.BuyorSale</h3>
+        <hr />
+        <h3>LandLord Name : @Model.LandLordFullName</h3>
+        <h3>LandLord Email : @Model.LandLordEmailAddress</h3>
+        <hr />
+        <h3>Property Price (NGN) : @Model.RentPerMonth.ToString("#,##0.00")</h3>
+        <h3>Property Address : @Model.PropertyAddress</h3>
+        <h3>Property Description : @Model.Description</h3>
+        <hr />
+
+        <h3>Furnished ? : @Model.IsPetAllowed</h3>
+
+        <h3>Does it have a Parking Space? : @Model.HasGarage</h3>
+        <h3>Does it have a Wi-Fi ? : @Model.HasSwimmingPool</h3>
+
+        <hr />
+
+
+    </div>
+
+
+
+    <div class="card-footer text-center m-1">
+
+        <form method="get" asp-controller="Home" asp-action="ViewEmail">
+            <input type="hidden" value="@Model.Id" name="Id" />
+            <input type="hidden" value="@Model.LandLordEmailAddress" name="LandlordEmailAddress" />
+            <input type="hidden" value="@Model.LandLordFullName" name="LandLordFullName" />
+            <input type="hidden" value="@Model.StartAvailabilityDate" name="StartAvailabilityDate" />
+            <input type="hidden" value="@Model.EndAvailabilityDate" name="EndAvailabilityDate" />
+            <input type="hidden" value="@Model.PropertyAddress" name="PropertyAddress" />
+            <input type="hidden" value="@UserManager.GetUserName(User)" name="TenantEmail" />
+            <input type="hidden" value="@Model.RentPerMonth" name="Fee" />
+
+            @if (signInManager.IsSignedIn(User) && User.IsInRole("Tenant"))
+            {
+
+
+<button type="submit" class="btn btn-primary m-1" style="width:auto">Book Viewing / Inspection Visit</button>}
+
+        </form>
+
+
+
+
+    </div>
+</div>

@@ -1,0 +1,40 @@
+﻿@model EmailViewModel
+@using Microsoft.Extensions.Options;
+@inject IOptions<EstateManagementApp.Models.StripeSetting> Stripe;
+
+@{ }
+
+<h1>Agent's Commission Payment</h1>
+
+<div>
+    <form method="post" asp-controller="Checkout" asp-action="Create">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div>
+            <input type="hidden" value="@Model.Landlordfullname" name="Landlordfullname" />
+
+            <input type="hidden" value="@Model.LandlordEmailAddress" name="LandlordEmailAddress" />
+            <input type="hidden" value="@Model.StartAvailabilityDate  " name="StartAvailabilityDate" />
+            <input type="hidden" value="@Model.EndAvailabilityDate  " name="EndAvailabilityDate" />
+            <input type="hidden" value="@Model.id" name="id" />
+            <input type="hidden" value="@Model.TenantEmail" name="TenantEmail" />
+            <input type="hidden" value="@Model.PropertyAddress" name="PropertyAddress" />
+            <input type="hidden" value="@Model.RentPerMonth" name="PaymentFee" />
+        </div>
+        <h5> Please note: You must pay the Agent's commission which is  10% of the actual Rent or Sale Fee Before Inspection can be allowed</h5>
+        <div class="form-group">
+            <label>Commission Fee (NGN):</label>
+            <input type="text" class="form-control" readonly name="Commission" value="@Model.Commission.ToString("#,##0.00")" />
+
+        </div>
+        <script src="//checkout.stripe.com/v2/checkout.js"
+                class="stripe-button"
+                data-key="pk_test_51LRjajCenmQFd4ceDd0j9m30nX4QTCFy2SrYz6XnE5xLQ0nBSODlDkSRgpxBfqUh4PiQHIeCvXORKagoelFAdBwp003QV2K6iS"
+                data-locale="auto"
+                data-description="Commission Charge"></script>
+
+
+    </form>
+</div>
+
+

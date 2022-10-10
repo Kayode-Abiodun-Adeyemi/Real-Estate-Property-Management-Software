@@ -1,0 +1,54 @@
+﻿@model IEnumerable<Building>;
+
+
+@inject SignInManager<ApplicationUser> signInManager;
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<h1>View Category</h1>
+<hr />
+
+@if (Model.Any())
+{
+
+    <div class="card-deck">
+
+        @foreach (var building in Model)
+        {
+            var photoPath = "~/BuildingImages/" + (building.PhotoPath ?? "noimage.png");
+            <div class="card m-3" style="min-width: 18rem; max-width:30.5%">
+                <div class="card-header">
+                    <h3> <img class="card-img-top imageThumbnail" src="@photoPath" alt="" asp-append-version="true" style:auto /> </h3>
+                </div>
+
+                <div class="card-body">
+                    <h3><a asp-controller="home" asp-action="ViewCategory">@building.BuyorSale</a></h3>
+                </div>
+
+                <div class="card-footer text-center m-1">
+                    @if (signInManager.IsSignedIn(User) && (User.IsInRole("LandLord") && (User.IsInRole("Tenant"))))
+                    {
+
+                        <h3><a asp-controller="home" asp-action="ViewSpecificBuilding" asp-route-id="@building.Id" class="btn btn-primary" style="width:5em">View</a></h3>
+
+
+                    }
+                    @if (signInManager.IsSignedIn(User) && (User.IsInRole("LandLord")))
+                    {
+                        <a asp-controller="LandLord" asp-action="DeleteBuilding" asp-route-id="@building.Id" onclick="return confirm('Are you sure you want to delete user:')" class="btn btn-primary" style="width:5em">Delete007</a>
+                    }
+
+
+
+                </div>
+
+            </div>
+        }
+    </div>
+   
+}
+else
+{
+    <button class="btn-primary">No Property Uploaded</button>
+}

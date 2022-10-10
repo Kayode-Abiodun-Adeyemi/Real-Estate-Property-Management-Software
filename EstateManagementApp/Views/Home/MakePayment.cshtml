@@ -1,0 +1,26 @@
+﻿@model EmailViewModel;
+
+
+@{
+    ViewData["Title"] = "Payment";
+}
+
+<h1>Make Payment</h1>
+<hr />
+
+<div>
+    <form method="post" asp-controller="Home" asp-action="MakePayment">
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="@Model.PaymentFee"></label>
+            <input asp-for="@Model.PaymentFee" class="form-control" />
+            <span asp-validation-for="@Model.PaymentFee" class="text-danger"></span>
+        </div>
+        <div>
+            <label asp-for="@Model.RentPerMonth"></label>
+            <input asp-for="@Model.RentPerMonth" value="@Model.RentPerMonth" readonly />
+        </div>
+        <button class="btn btn-primary" type="submit">Make Payment</button>
+    </form>
+</div>

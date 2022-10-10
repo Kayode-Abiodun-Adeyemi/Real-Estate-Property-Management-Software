@@ -1,0 +1,173 @@
+﻿@model IEnumerable<Category>;
+@inject SignInManager<ApplicationUser> signInManager;
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@if (!signInManager.IsSignedIn(User))
+{
+
+    <div class="text-center">
+        <h1 class="display-4">Welcome</h1>
+        <p>The Real Estate Property Management Software for Dominion Akindipe Estate Agency, Victoria Island, Lagos, Nigeria</p>
+    </div>
+
+    <div class="container">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="2000" data-pause="hover">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+                <li data-target="#myCarousel" data-slide-to="3"></li>
+                <li data-target="#myCarousel" data-slide-to="4"></li>
+                <li data-target="#myCarousel" data-slide-to="5"></li>
+                <li data-target="#myCarousel" data-slide-to="6"></li>
+                <li data-target="#myCarousel" data-slide-to="7"></li>
+            </ol>
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <div class="carousel-content">
+                        <div style="margin: 0 auto">
+
+                            <p>
+                                <img alt="The 1st Message." src="~/Images/1.jpg"
+                                     style="width: 548px;height: 250px" />
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="carousel-content">
+                        <div style="margin: 0 auto">
+
+                            <p>
+                                <img alt="The 2nd Message." src="~/Images/2.jpg"
+                                     style="width: 548px;height: 250px" />
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="carousel-content">
+                        <div style="margin: 0 auto">
+
+                            <p>
+                                <img alt="The 3rd Message." src="~/Images/3.jpg"
+                                     style="width: 548px;height: 250px" />
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="carousel-content">
+                        <div style="margin: 0 auto">
+
+                            <p>
+                                <img alt="The 4th Message." src="~/Images/4.jpg"
+                                     style="width: 548px;height: 250px" />
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="item">
+                    <div class="carousel-content">
+                        <div style="margin: 0 auto">
+
+                            <p>
+                                <img alt="The 5th Message." src="~/Images/5.jpg"
+                                     style="width: 548px;height: 250px" />
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="carousel-content">
+                        <div style="margin: 0 auto">
+
+                            <p>
+                                <img alt="The 6th Message." src="~/Images/6.jpg"
+                                     style="width: 548px;height: 250px" />
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="carousel-content">
+                        <div style="margin: 0 auto">
+
+                            <p>
+                                <img alt="The 7th Message." src="~/Images/7.jpg"
+                                     style="width: 548px;height: 250px" />
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="carousel-content">
+                        <div style="margin: 0 auto">
+
+                            <p>
+                                <img alt="The 8th Message." src="~/Images/8.jpg"
+                                     style="width: 548px;height: 250px" />
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only"> Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+}
+
+<hr />
+@if (Model.Any())
+{
+
+    <div class="card-deck">
+
+        @foreach (var category in Model)
+        {
+            var photoPath = "~/CategoryImages/" + (category.CategoryPhotoPath ?? "noimage.png");
+            <div class="card m-3" style="min-width: 18rem; max-width:30.5%">
+                <div class="card-header">
+                    <h3> <img class="card-img-top imageThumbnail" src="@photoPath" alt="" asp-append-version="true" height="200px" width="200px"  /> </h3>
+                </div>
+
+                <div class="card-body">
+                    <h3><a asp-controller="home" asp-action="ViewCategory">@category.CategoryName</a></h3>
+                </div>
+
+                <div class="card-footer text-center m-1">
+                    @if (signInManager.IsSignedIn(User) && (User.IsInRole("Admin")))
+                    {
+
+
+                        <a asp-controller="home" asp-action="EditCategory" asp-route-id="@category.Id" class="btn btn-primary m-1" style="width:5em">Edit</a>
+                        <a asp-controller="home" asp-action="DeleteCategory" asp-route-id="@category.Id" onclick="return confirm('Are you sure you want to delete user: @category.CategoryName')" class="btn btn-danger" style="width:5em">Delete</a>
+                    }
+
+                    <a asp-controller="home" asp-action="ViewProperty" asp-route-id="@category.Id" class="btn btn-primary m-1" style="width:5em">View</a>
+
+
+
+                </div>
+
+            </div>
+        }
+    </div>
+}
+else
+{
+    <button class="btn-primary">No Category Created</button>
+}

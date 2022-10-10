@@ -1,0 +1,192 @@
+﻿@inject SignInManager<ApplicationUser> signInManager;
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <environment include="Development">
+
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <style type="text/css">
+            .carousel-inner {
+                width: auto;
+                height: 200px;
+                max-height: 200px !important;
+            }
+
+            .carousel-content {
+                color: black;
+                display: flex;
+                text-align: center;
+            }
+        </style>
+
+
+
+        <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+        <script src="~/lib/jquery/jquery.js"></script>
+        <script src="~/lib/jquery-validate/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+        <script src="~/lib/bootstrap/js/bootstrap.js"></script>
+
+    </environment>
+    <environment include="Staging,Production, Development">
+        @*exclude="Development"*@
+        <link rel="stylesheet"
+              href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+              crossorigin="anonymous"
+              asp-fallback-href="~/lib/bootstrap/css/bootstrap.css"
+              asp-fallback-test-class="sr-only"
+              asp-fallback-test-property="position"
+              asp-fallback-test-value="absolute"
+              asp-suppress-fallback-integrity="true">
+
+        @*This should be loaded from a CDN*@
+        <script src="~/lib/jquery/jquery.js"></script>
+        <script src="~/lib/jquery-validate/jquery.validate.js"></script>
+        <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+        <script src="~/lib/bootstrap/js/bootstrap.js"></script>
+    </environment>
+    <link href="~/css/site.css" rel="stylesheet" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+            <a class="navbar-brand" asp-action="index" asp-controller="home">
+                Home
+            </a>
+
+            <a class="navbar-brand" asp-page="/Chat">
+                Chat
+            </a>
+
+
+
+
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#collapsibleNavbar">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                <ul class="navbar-nav">
+                    @if (signInManager.IsSignedIn(User) && User.IsInRole("Tenant"))
+                    {
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Tenant DashBoard
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+                <a asp-action="ChangePassword" asp-controller="account" class="dropdown-item">Change Password</a>
+
+            </div>
+        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Search
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+                                <a asp-action="Search" asp-controller="Home" asp-route-idname="Sale" class="dropdown-item">List of Property for Sale</a>
+                                <a asp-action="Search" asp-controller="Home" asp-route-idname="Rent" class="dropdown-item">List of Property for Rent</a>
+                            </div>
+                        </li>}
+
+
+
+                    <div>
+                        <a class="navbar-brand" asp-action="contact" asp-controller="home" class="nav-link dropdown-toggle">
+                            Contact Us
+                        </a>
+                    </div>
+
+
+                    @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                    {
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Admin DashBoard
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+                <a asp-action="registeradmin" asp-controller="account" class="dropdown-item">Create Admin</a>
+                <a asp-action="ListRoles" asp-controller="administration" class="dropdown-item">Create Roles</a>
+                <a asp-action="CreateCategory" asp-controller="Administration" class="dropdown-item">Create Category</a>
+                <a asp-action="ListRoles" asp-controller="administration" class="dropdown-item">Suspend User</a>
+                <a asp-action="ChangePassword" asp-controller="account" class="dropdown-item">Change Password</a>
+            </div>
+        </li>
+}
+
+
+                    @if (signInManager.IsSignedIn(User) && User.IsInRole("LandLord"))
+                    {
+        <li class="nav-item">
+
+
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                LandLord DashBoard
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+
+                <a asp-action="Index" asp-controller="LandLord" class="dropdown-item">List Property</a>
+
+                <a asp-action="ChangePassword" asp-controller="account" class="dropdown-item">Change Password</a>
+            </div>
+        </li>
+        </li>}
+
+
+
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    @if (signInManager.IsSignedIn(User))
+                    {
+        <li class="nav-item">
+            <form asp-controller="account" asp-action="logout" method="post">
+                <button type="submit" class="nav-link btn btn-link py-0">
+                    Logout @User.Identity.Name
+                </button>
+            </form>
+
+        </li> }
+                    else
+                    {
+        <li class="nav-item">
+            <a asp-action="register" asp-controller="account" class="nav-link">Register</a>
+        </li>
+                        <li class="nav-item">
+                            <a asp-action="login" asp-controller="account" class="nav-link">Login </a>
+                        </li> @*<li class="nav-item">
+                                        <a asp-action="Login" asp-controller="account" class="nav-link">Admin LogIn</a>
+                                    </li>*@}
+                </ul>
+            </div>
+        </nav>
+        <div class="container">
+
+            @RenderBody()
+        </div>
+        @if (IsSectionDefined("Scripts"))
+        {
+@RenderSection("Scripts", required: true)}
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.carousel').carousel();
+        });
+    </script>
+</body>
+ 
+</html>

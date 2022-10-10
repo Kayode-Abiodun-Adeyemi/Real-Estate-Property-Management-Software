@@ -1,0 +1,29 @@
+﻿@model EmailViewModel
+
+@{
+
+}
+
+<h1>Email Interface</h1>
+
+<div>
+    <form method="post" asp-controller="Home" asp-action="ViewEmail">
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="@Model.CustomerChosenInspectionDate"></label>
+            <input asp-for="@Model.CustomerChosenInspectionDate" class="form-control" />
+            <span asp-validation-for="@Model.CustomerChosenInspectionDate" class="text-danger"></span>
+        </div>
+        <div>
+            <input type="hidden" value="@Model.Landlordfullname" name="Landlordfullname" />
+
+            <input type="hidden" value="@Model.LandlordEmailAddress" name="LandlordEmail" />
+            <input type="hidden" value="@Model.StartAvailabilityDate" name="Start" />
+            <input type="hidden" value="@Model.EndAvailabilityDate" name="End" />
+            <input type="hidden" value="@Model.id" name="id" />
+        </div>
+        <h5> Please note: LandLord's Availability Date is between {@Model.StartAvailabilityDate .ToShortDateString()} and {@Model.EndAvailabilityDate.ToShortDateString()}</h5>
+        <button type="submit" class="btn btn-primary m-1" style="width:5em">Submit</button>
+    </form>
+</div>
+

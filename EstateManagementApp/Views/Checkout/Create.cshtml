@@ -1,0 +1,31 @@
+﻿@model EmailViewModel2;
+
+
+@{
+    ViewData["Title"] = "Book Inspection Date";
+}
+
+<h1>Book Inspection Date</h1>
+<hr />
+
+<div>
+    <form method="post" asp-controller="Home" asp-action="ViewEmail">
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+        <input type="hidden" value="@Model.StartAvailabilityDate" name="StartAvailabilityDate" />
+        <input type="hidden" value="@Model.EndAvailabilityDate" name="EndAvailabilityDate" />
+        <input type="hidden" value="@Model.LandlordEmailAddress" name="LandlordEmailAddress" />
+        <input type="hidden" value="@Model.Landlordfullname" name="Landlordfullname" />
+        <input type="hidden" value="@Model.PropertyAddress" name="PropertyAddress" />
+        <input type="hidden" value="@Model.TenantEmail" name="TenantEmail" />
+
+
+        <div class="form-group">
+            <label>Pick Your Availability Date</label>
+            <input asp-for="@Model.CustomerChosenInspectionDate" class="form-control" />
+            <span asp-validation-for="@Model.CustomerChosenInspectionDate" class="text-danger"></span>
+        </div>
+        <h5>NB: Be advised that the LandLord's availability Date is between @Model.StartAvailabilityDate and @Model.EndAvailabilityDate  </h5>
+        <button class="btn btn-primary" type="submit">Book Date of Inspection / Viewing</button>
+    </form>
+</div>

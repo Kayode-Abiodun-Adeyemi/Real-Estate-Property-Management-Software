@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EstateManagementApp.Data\EstateManagementApp.Data.csproj" />
+    <ProjectReference Include="..\EstateManagementApp.Services\EstateManagementApp.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Core" Version="1.1.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Stripe.net" Version="34.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="PayPalCheckoutSdk">
+      <HintPath>..\..\..\..\..\..\Desktop\PayPal\Checkout-NET-SDK-develop\Checkout-NET-SDK-develop\PayPalCheckoutSdk\bin\Debug\netstandard2.0\PayPalCheckoutSdk.dll</HintPath>
+    </Reference>
+    <Reference Include="PayPalHttp-Dotnet">
+      <HintPath>..\..\..\..\..\..\Desktop\PayPal\Checkout-NET-SDK-develop\Checkout-NET-SDK-develop\packages\PayPalHttp-Dotnet.1.0.0\lib\netstandard2.0\PayPalHttp-Dotnet.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
