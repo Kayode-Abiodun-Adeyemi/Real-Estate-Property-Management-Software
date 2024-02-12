@@ -1,2 +1,2 @@
 # Real-Estate-Property-Management-Software
-Development of a Real Estate Property Management Web Application for a Client / Case Study, which will assist to offer online-real-time services in a simplistic and streamlined fashion to its customers.
+This interactive online web application was developed using C# and Asp.Net.Net Core with n-Tier architecture enabling a property management agency in the Real Estate industry to reduce overhead costs while improving operational efficiency. 
